@@ -21,16 +21,19 @@ std::string DefaultFormatter::format(const LogMessage & msg)
 
     oss << "[" << std::put_time(&tm_time, "%Y-%m-%d %H:%M:%S") << "] ";
 
-    if (msg.thread_id != std::thread::id())
+    if (msg.thread_id != std::thread::id()) {
         oss << "[TID:" << msg.thread_id << "] ";
+    }
 
     oss << "[" << formatLogLevel(msg.level) << "] ";
 
-    if (!msg.file.empty())
+    if (!msg.file.empty()) {
         oss << "[" << msg.file << ":" << msg.line << "] ";
+    }
 
-    if (!msg.function.empty())
+    if (!msg.function.empty()) {
         oss << "[" << msg.function << "] ";
+    }
 
     oss << msg.message;
 

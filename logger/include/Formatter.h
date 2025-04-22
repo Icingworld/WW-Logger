@@ -6,7 +6,7 @@ namespace WW
 {
 
 /**
- * @brief 日志格式化器基类
+ * @brief 日志格式化器
  */
 class Formatter
 {
