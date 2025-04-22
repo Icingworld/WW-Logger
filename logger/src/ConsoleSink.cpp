@@ -6,7 +6,7 @@ namespace WW
 {
 
 ConsoleSink::ConsoleSink(std::shared_ptr<Formatter> formatter)
-    : formatter(std::move(formatter))
+    : Sink(formatter)
 {
 }
 

@@ -1,9 +1,6 @@
 #pragma once
 
-#include <memory>
-
 #include "Sink.h"
-#include "DefaultFormatter.h"
 
 namespace WW
 {
@@ -13,9 +10,6 @@ namespace WW
  */
 class ConsoleSink : public Sink
 {
-private:
-    std::shared_ptr<Formatter> formatter;   // 日志格式化器
-
 public:
     explicit ConsoleSink(std::shared_ptr<Formatter> formatter = std::make_shared<DefaultFormatter>());
 
