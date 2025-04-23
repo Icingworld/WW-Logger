@@ -11,12 +11,13 @@ DefaultFileSink::DefaultFileSink(const std::string & filename, std::shared_ptr<F
     if (!file.is_open()) {
         throw std::runtime_error("Failed to open log file: " + filename);
     }
+
+    splitFilename();
 }
 
 DefaultFileSink::~DefaultFileSink()
 {
     if (file.is_open()) {
-        file.flush();
         file.close();
     }
 }
@@ -34,6 +35,18 @@ void DefaultFileSink::flush()
 {
     if (file.is_open()) {
         file.flush();
+    }
+}
+
+void DefaultFileSink::splitFilename()
+{
+    std::size_t dot_pos = filename.find_last_of('.');
+    if (dot_pos == std::string::npos) {
+        name = filename;
+        suffix = "";
+    } else {
+        name = filename.substr(0, dot_pos);
+        suffix = filename.substr(dot_pos);
     }
 }
 

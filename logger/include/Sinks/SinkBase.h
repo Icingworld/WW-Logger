@@ -32,6 +32,9 @@ public:
      */
     virtual void flush() = 0;
 
+    /**
+     * @brief 设置日志格式化器
+     */
     void setFormatter(std::shared_ptr<FormatterBase> formatter);
 };
 

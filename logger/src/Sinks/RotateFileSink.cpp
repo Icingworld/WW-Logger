@@ -44,21 +44,21 @@ void RotateFileSink::rotate()
         file.close();
     }
 
-    std::string oldest_file = filename + "." + std::to_string(max_files);
+    std::string oldest_file = name + "-" + std::to_string(max_files) + suffix;
     if (std::ifstream(oldest_file).good()) {
         std::remove(oldest_file.c_str());
     }
 
     for (std::size_t i = max_files - 1; i > 0; --i) {
-        std::string src = filename + "." + std::to_string(i);
+        std::string src = name + "-" + std::to_string(i) + suffix;
         if (std::ifstream(src).good()) {
-            std::string target = filename + "." + std::to_string(i + 1);
+            std::string target = name + "-" + std::to_string(i + 1) + suffix;
             std::rename(src.c_str(), target.c_str());
         }
     }
 
     if (std::ifstream(filename).good()) {
-        std::rename(filename.c_str(), (filename + ".1").c_str());
+        std::rename(filename.c_str(), (name + "-1" + suffix).c_str());
     }
 
     file.open(filename, std::ios::out | std::ios::trunc);

@@ -13,7 +13,9 @@ namespace WW
 class DefaultFileSink : public SinkBase
 {
 protected:
-    std::string filename;                   // 日志文件名
+    std::string filename;                   // 日志文件全名
+    std::string name;                       // 日志文件名称
+    std::string suffix;                     // 日志文件后缀
     std::ofstream file;                     // 日志文件
 
 public:
@@ -31,6 +33,12 @@ public:
      * @brief 强制刷新输出流
      */
     void flush() override;
+
+private:
+    /**
+     * @brief 解析日志文件名称
+     */
+    void splitFilename();
 };
 
 } // namespace WW
