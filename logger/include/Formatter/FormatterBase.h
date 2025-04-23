@@ -11,6 +11,8 @@ namespace WW
 class FormatterBase
 {
 public:
+    FormatterBase() = default;
+
     virtual ~FormatterBase() = default;
 
 public:

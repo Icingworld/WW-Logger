@@ -11,6 +11,11 @@ namespace WW
 class DefaultFormatter : public FormatterBase
 {
 public:
+    DefaultFormatter() = default;
+
+    ~DefaultFormatter() override = default;
+
+public:
     std::string format(const LogMessage & msg) override;
 
 private:

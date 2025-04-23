@@ -16,6 +16,11 @@ private:
     std::mutex mutex;   // 互斥锁
 
 public:
+    SyncLogger() = default;
+
+    ~SyncLogger() override = default;
+
+public:
     /**
      * @brief 输出日志
      */
@@ -26,6 +31,9 @@ public:
      */
     void flush() override;
 
+    /**
+     * @brief 获取日志类型
+     */
     LogType getType() const override;
 };
 

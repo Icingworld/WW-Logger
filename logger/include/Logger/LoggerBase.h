@@ -27,6 +27,8 @@ protected:
     std::vector<std::shared_ptr<SinkBase>> sinks;   // 输出接口列表
 
 public:
+    LoggerBase() = default;
+
     virtual ~LoggerBase() = default;
 
 public:
@@ -36,6 +38,9 @@ public:
 
     virtual LogType getType() const = 0;
 
+    /**
+     * @brief 添加输出接口
+     */
     void addSink(std::shared_ptr<SinkBase> sink);
 };
 

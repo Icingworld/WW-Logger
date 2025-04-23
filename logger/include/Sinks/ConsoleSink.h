@@ -13,6 +13,8 @@ class ConsoleSink : public SinkBase
 public:
     explicit ConsoleSink(std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
+    ~ConsoleSink() override = default;
+
 public:
     /**
      * @brief 输出日志到控制台
