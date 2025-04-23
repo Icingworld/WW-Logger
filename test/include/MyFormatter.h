@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Formatter.h"
+#include <Formatter/FormatterBase.h>
 
 /**
  * @brief 自定义格式化器
  */
-class MyFormatter : public WW::Formatter
+class MyFormatter : public WW::FormatterBase
 {
 public:
     /**
