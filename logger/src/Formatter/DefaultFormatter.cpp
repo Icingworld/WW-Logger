@@ -40,7 +40,7 @@ std::string DefaultFormatter::format(const LogMessage & msg)
     return oss.str();
 }
 
-std::string DefaultFormatter::formatLogLevel(LogLevel level)
+std::string DefaultFormatter::formatLogLevel(LogLevel level) const
 {
     switch (level) {
     case LogLevel::Trace:

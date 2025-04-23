@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LogMessage.h"
+#include <LogMessage.h>
 
 namespace WW
 {
@@ -8,10 +8,10 @@ namespace WW
 /**
  * @brief 日志格式化器
  */
-class Formatter
+class FormatterBase
 {
 public:
-    virtual ~Formatter() = default;
+    virtual ~FormatterBase() = default;
 
 public:
     virtual std::string format(const LogMessage & msg) = 0;

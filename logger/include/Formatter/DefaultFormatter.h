@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Formatter.h"
+#include <Formatter/FormatterBase.h>
 
 namespace WW
 {
@@ -8,7 +8,7 @@ namespace WW
 /**
  * @brief 默认格式化器
  */
-class DefaultFormatter : public Formatter
+class DefaultFormatter : public FormatterBase
 {
 public:
     std::string format(const LogMessage & msg) override;
@@ -17,7 +17,7 @@ private:
     /**
      * @brief 格式化日志等级
      */
-    std::string formatLogLevel(LogLevel level);
+    std::string formatLogLevel(LogLevel level) const;
 };
 
 } // namespace WW

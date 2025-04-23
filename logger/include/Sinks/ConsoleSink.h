@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Sink.h"
+#include <Sinks/SinkBase.h>
 
 namespace WW
 {
@@ -8,10 +8,10 @@ namespace WW
 /**
  * @brief 控制台日志输出
  */
-class ConsoleSink : public Sink
+class ConsoleSink : public SinkBase
 {
 public:
-    explicit ConsoleSink(std::shared_ptr<Formatter> formatter = std::make_shared<DefaultFormatter>());
+    explicit ConsoleSink(std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
 public:
     /**

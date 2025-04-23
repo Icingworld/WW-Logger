@@ -3,7 +3,7 @@
 namespace WW
 {
 
-void LoggerBase::addSink(std::shared_ptr<Sink> sink)
+void LoggerBase::addSink(std::shared_ptr<SinkBase> sink)
 {
     sinks.emplace_back(std::move(sink));
 }

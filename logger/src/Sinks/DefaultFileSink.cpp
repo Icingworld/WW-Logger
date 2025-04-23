@@ -1,10 +1,10 @@
-#include "FileSink.h"
+#include "DefaultFileSink.h"
 
 namespace WW
 {
 
-FileSink::FileSink(const std::string & filename, std::shared_ptr<Formatter> formatter)
-    : Sink(formatter)
+DefaultFileSink::DefaultFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter)
+    : SinkBase(formatter)
     , filename(filename)
     , file(filename, std::ios::out | std::ios::app)
 {
@@ -13,14 +13,14 @@ FileSink::FileSink(const std::string & filename, std::shared_ptr<Formatter> form
     }
 }
 
-FileSink::~FileSink()
+DefaultFileSink::~DefaultFileSink()
 {
     if (file.is_open()) {
         file.close();
     }
 }
 
-void FileSink::log(const LogMessage & msg)
+void DefaultFileSink::log(const LogMessage & msg)
 {
     if (msg.level == LogLevel::Off || !file.is_open()) {
         return;
@@ -29,7 +29,7 @@ void FileSink::log(const LogMessage & msg)
     file << formatter->format(msg) << std::endl;
 }
 
-void FileSink::flush()
+void DefaultFileSink::flush()
 {
     if (file.is_open()) {
         file.flush();

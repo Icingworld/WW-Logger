@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 
-#include "Sink.h"
-#include "LogLevel.h"
+#include <Sinks/SinkBase.h>
+#include <LogLevel.h>
 
 namespace WW
 {
@@ -24,7 +24,7 @@ enum class LogType
 class LoggerBase
 {
 protected:
-    std::vector<std::shared_ptr<Sink>> sinks;   // 输出接口列表
+    std::vector<std::shared_ptr<SinkBase>> sinks;   // 输出接口列表
 
 public:
     virtual ~LoggerBase() = default;
@@ -36,7 +36,7 @@ public:
 
     virtual LogType getType() const = 0;
 
-    void addSink(std::shared_ptr<Sink> sink);
+    void addSink(std::shared_ptr<SinkBase> sink);
 };
 
 } // namespace WW

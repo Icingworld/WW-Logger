@@ -1,18 +1,29 @@
 #pragma once
 
-#include "LoggerBase.h"
+#include <mutex>
+
+#include <Logger/LoggerBase.h>
 
 namespace WW
 {
 
 /**
- * @brief 异步日志
+ * @brief 同步日志
  */
-class AsyncLogger : public LoggerBase
+class SyncLogger : public LoggerBase
 {
+private:
+    std::mutex mutex;   // 互斥锁
+
 public:
+    /**
+     * @brief 输出日志
+     */
     void log(LogLevel level, const std::string & message, const char * file = "", unsigned int line = 0, const char * function = "") override;
 
+    /**
+     * @brief 刷新日志输出
+     */
     void flush() override;
 
     LogType getType() const override;

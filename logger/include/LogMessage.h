@@ -4,7 +4,7 @@
 #include <chrono>
 #include <thread>
 
-#include "LogLevel.h"
+#include <LogLevel.h>
 
 namespace WW
 {

@@ -2,7 +2,7 @@
 
 #include <fstream>
 
-#include "Sink.h"
+#include <Sinks/SinkBase.h>
 
 namespace WW
 {
@@ -10,16 +10,16 @@ namespace WW
 /**
  * @brief 文件日志输出
  */
-class FileSink : public Sink
+class DefaultFileSink : public SinkBase
 {
 private:
     std::string filename;                   // 日志文件名
     std::ofstream file;                     // 日志文件
 
 public:
-    explicit FileSink(const std::string & filename, std::shared_ptr<Formatter> formatter = std::make_shared<DefaultFormatter>());
+    explicit DefaultFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
-    ~FileSink() override;
+    ~DefaultFileSink() override;
 
 public:
     /**
