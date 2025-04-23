@@ -16,6 +16,7 @@ DefaultFileSink::DefaultFileSink(const std::string & filename, std::shared_ptr<F
 DefaultFileSink::~DefaultFileSink()
 {
     if (file.is_open()) {
+        file.flush();
         file.close();
     }
 }

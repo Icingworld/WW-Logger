@@ -8,11 +8,11 @@ namespace WW
 {
 
 /**
- * @brief 文件日志输出
+ * @brief 默认文件日志输出
  */
 class DefaultFileSink : public SinkBase
 {
-private:
+protected:
     std::string filename;                   // 日志文件名
     std::ofstream file;                     // 日志文件
 
