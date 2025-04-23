@@ -28,7 +28,7 @@ public:
     virtual void log(const LogMessage & msg) = 0;
 
     /**
-     * @brief 刷新
+     * @brief 刷新日志输出
      */
     virtual void flush() = 0;
 

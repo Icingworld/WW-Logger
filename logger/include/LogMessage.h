@@ -15,13 +15,13 @@ namespace WW
 class LogMessage
 {
 public:
-    LogLevel level;                                     /* 日志等级 */
-    std::string message;                                /* 日志消息 */
-    std::string file;                                   /* 文件名 */
-    unsigned int line;                                  /* 行号 */
-    std::string function;                               /* 函数名 */
-    std::chrono::system_clock::time_point timestamp;    /* 时间戳 */
-    std::thread::id thread_id;                          /* 线程ID */
+    LogLevel level;                                     // 日志等级
+    std::string message;                                // 日志消息
+    std::string file;                                   // 文件名
+    unsigned int line;                                  // 行号
+    std::string function;                               // 函数名
+    std::chrono::system_clock::time_point timestamp;    // 时间戳
+    std::thread::id thread_id;                          // 线程ID
 };
 
 } // namespace WW

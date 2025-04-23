@@ -20,14 +20,8 @@ public:
     ~RotateFileSink() override = default;
 
 public:
-    /**
-     * @brief 输出日志到文件
-     */
     void log(const LogMessage & msg) override;
 
-    /**
-     * @brief 强制刷新输出流
-     */
     void flush() override;
 
 private:

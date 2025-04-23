@@ -16,6 +16,9 @@ public:
     virtual ~FormatterBase() = default;
 
 public:
+    /**
+     * @brief 格式化日志
+     */
     virtual std::string format(const LogMessage & msg) = 0;
 };
 

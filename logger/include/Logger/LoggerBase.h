@@ -32,10 +32,19 @@ public:
     virtual ~LoggerBase() = default;
 
 public:
+    /**
+     * @brief 输出日志
+     */
     virtual void log(LogLevel level, const std::string & message, const char * file = "", unsigned int line = 0, const char * function = "") = 0;
 
+    /**
+     * @brief 刷新日志输出
+     */
     virtual void flush() = 0;
 
+    /**
+     * @brief 获取日志类型
+     */
     virtual LogType getType() const = 0;
 
     /**

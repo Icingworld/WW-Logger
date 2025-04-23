@@ -21,9 +21,6 @@ public:
      */
     void log(const LogMessage & msg) override;
 
-    /**
-     * @brief 强制刷新输出流
-     */
     void flush() override;
 };
 
