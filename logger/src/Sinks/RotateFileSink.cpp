@@ -16,11 +16,11 @@ RotateFileSink::~RotateFileSink()
 
 void RotateFileSink::log(const LogMessage & msg)
 {
+    DefaultFileSink::log(msg);
+
     if (getCurrentFileSize() > max_size) {
         rotate();
     }
-
-    DefaultFileSink::log(msg);
 }
 
 void RotateFileSink::flush()
@@ -32,6 +32,7 @@ std::size_t RotateFileSink::getCurrentFileSize() const
 {
     std::ifstream cur_file(filename, std::ios::binary | std::ios::ate);
     if (!cur_file.is_open()) {
+        throw std::runtime_error("Failed to open log file: " + filename);
         return 0;
     }
     return static_cast<std::size_t>(cur_file.tellg());
@@ -60,7 +61,10 @@ void RotateFileSink::rotate()
         std::rename(filename.c_str(), (filename + ".1").c_str());
     }
 
-    file.open(filename, std::ios::out | std::ios::app);
+    file.open(filename, std::ios::out | std::ios::trunc);
+    if (!file.is_open()) {
+        throw std::runtime_error("Failed to open log file: " + filename);
+    }
 }
 
 } // namespace WW
