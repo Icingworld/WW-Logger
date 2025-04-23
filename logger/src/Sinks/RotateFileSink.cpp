@@ -10,10 +10,6 @@ RotateFileSink::RotateFileSink(const std::string & filename, std::size_t max_siz
 {
 }
 
-RotateFileSink::~RotateFileSink()
-{
-}
-
 void RotateFileSink::log(const LogMessage & msg)
 {
     DefaultFileSink::log(msg);

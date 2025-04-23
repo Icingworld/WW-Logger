@@ -13,10 +13,6 @@ TimedFileSink::TimedFileSink(const std::string & filename, std::chrono::duration
 {
 }
 
-TimedFileSink::~TimedFileSink()
-{
-}
-
 void TimedFileSink::setDuration(std::chrono::duration<int> duration)
 {
     this->duration = duration;

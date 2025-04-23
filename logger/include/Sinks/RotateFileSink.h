@@ -17,7 +17,7 @@ private:
 public:
     explicit RotateFileSink(const std::string & filename, std::size_t max_size = 1024 * 1024, std::size_t max_files = 1, std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
-    ~RotateFileSink() override;
+    ~RotateFileSink() override = default;
 
 public:
     /**

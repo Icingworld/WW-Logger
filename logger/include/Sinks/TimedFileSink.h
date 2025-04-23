@@ -17,7 +17,7 @@ protected:
 public:
     explicit TimedFileSink(const std::string & filename, std::chrono::duration<int> duration = std::chrono::hours(24), std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
-    ~TimedFileSink() override;
+    ~TimedFileSink() override = default;
 
 public:
     /**
