@@ -20,7 +20,7 @@ private:
     static std::mutex loggers_mutex;        // 日志哈希表互斥锁
     static std::unordered_map<std::string, std::shared_ptr<Logger>> loggers;    // 日志哈希表
 
-private:
+public:
     explicit Logger(const std::string & name);
 
     Logger(const std::string & name, LogLevel level);

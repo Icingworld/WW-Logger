@@ -5,7 +5,7 @@ namespace WW
 
 std::mutex Logger::loggers_mutex;
 
-std::unordered_map<std::string, std::shared_ptr<Logger>> loggers;
+std::unordered_map<std::string, std::shared_ptr<Logger>> Logger::loggers;
 
 Logger::Logger(const std::string & name)
     : Logger(name, LogLevel::Info, LogType::Sync)

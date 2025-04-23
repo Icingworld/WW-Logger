@@ -31,6 +31,13 @@ void DefaultFileSink::log(const LogMessage & msg)
     file << formatter->format(msg) << std::endl;
 }
 
+void DefaultFileSink::log(const char * data, std::size_t size)
+{
+    if (file.is_open()) {
+        file.write(data, size);
+    }
+}
+
 void DefaultFileSink::flush()
 {
     if (file.is_open()) {

@@ -1,6 +1,6 @@
 #include "SyncLogger.h"
 
-#include "LogMessage.h"
+#include <LogMessage.h>
 
 namespace WW
 {

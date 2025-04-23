@@ -21,6 +21,11 @@ void ConsoleSink::log(const LogMessage & msg)
         std::cout << formatter->format(msg) << std::endl;
 }
 
+void ConsoleSink::log(const char * data, std::size_t size)
+{
+    std::cout.write(data, size);
+}
+
 void ConsoleSink::flush()
 {
     std::cout.flush();

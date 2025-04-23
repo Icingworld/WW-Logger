@@ -29,6 +29,11 @@ public:
      */
     void log(const LogMessage & msg) override;
 
+    /**
+     * @brief 输出日志到文件
+     */
+    void log(const char * data, std::size_t size) override;
+
     void flush() override;
 
 private:
