@@ -24,7 +24,7 @@ DefaultFileSink::~DefaultFileSink()
 
 void DefaultFileSink::log(const LogMessage & msg)
 {
-    if (msg.level == LogLevel::Off || !file.is_open()) {
+    if (!file.is_open()) {
         return;
     }
 

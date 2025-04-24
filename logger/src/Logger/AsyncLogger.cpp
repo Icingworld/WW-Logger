@@ -1,6 +1,7 @@
 #include "AsyncLogger.h"
 
 #include <LogMessage.h>
+#include <Sinks/DefaultFileSink.h>
 
 namespace WW
 {
@@ -9,6 +10,11 @@ AsyncLogger::AsyncLogger()
     : formatter(std::make_shared<DefaultFormatter>())
     , worker(std::bind(&AsyncLogger::callback, this, std::placeholders::_1, std::placeholders::_2))
 {
+}
+
+AsyncLogger::~AsyncLogger()
+{
+    worker.stop();
 }
 
 void AsyncLogger::log(LogLevel level, const std::string & message, const char * file, unsigned int line, const char * function)
@@ -23,7 +29,7 @@ void AsyncLogger::log(LogLevel level, const std::string & message, const char * 
         std::this_thread::get_id()
     };
 
-    std::string data = formatter->format(msg);
+    std::string data = formatter->format(msg) + "\n";
     worker.push(data.c_str(), data.size());
 }
 
@@ -49,7 +55,10 @@ void AsyncLogger::callback(const char * data, std::size_t size)
 {
     std::lock_guard<std::mutex> lock(mutex);
     for (auto & sink : sinks) {
-        sink->log(data, size);
+        auto file_sink = std::dynamic_pointer_cast<WW::DefaultFileSink>(sink);
+        if (file_sink) {
+            file_sink->log(data, size);
+        }
     }
 }
 

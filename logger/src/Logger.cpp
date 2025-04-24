@@ -79,7 +79,7 @@ void Logger::addSink(std::shared_ptr<SinkBase> sink)
 
 void Logger::log(LogLevel level, const std::string & message, const char * file, unsigned int line, const char * function)
 {
-    if (level < this->level)
+    if (level == LogLevel::Off || level < this->level)
         return;
     
     logger->log(level, message, file, line, function);

@@ -28,11 +28,6 @@ public:
     virtual void log(const LogMessage & msg) = 0;
 
     /**
-     * @brief 输出日志
-     */
-    virtual void log(const char * data, std::size_t size) = 0;
-
-    /**
      * @brief 刷新日志输出
      */
     virtual void flush() = 0;

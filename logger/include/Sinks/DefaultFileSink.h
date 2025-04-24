@@ -32,7 +32,7 @@ public:
     /**
      * @brief 输出日志到文件
      */
-    void log(const char * data, std::size_t size) override;
+    void log(const char * data, std::size_t size);
 
     void flush() override;
 

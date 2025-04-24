@@ -21,11 +21,6 @@ public:
      */
     void log(const LogMessage & msg) override;
 
-    /**
-     * @brief 输出日志到控制台
-     */
-    void log(const char * data, std::size_t size) override;
-
     void flush() override;
 };
 
