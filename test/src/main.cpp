@@ -8,6 +8,9 @@ int main()
     // 获取实例
     WW::Logger & logger = WW::Logger::getDefaultLogger("MyLogger");
 
+    // 设置日志类型
+    logger.setType(WW::LogType::Async);
+
     // 设置终端输出
     WW::ConsoleSink sink;
     // 设置格式化器
@@ -23,11 +26,8 @@ int main()
     // 添加输出接口
     logger.addSink(std::make_shared<WW::DefaultFileSink>(filename));
 
-    // 设置日志类型
-    logger.setType(WW::LogType::Async);
-
     // 设置日志级别
-    logger.setLevel(WW::LogLevel::Info);
+    logger.setLevel(WW::LogLevel::Debug);
 
     // 打印日志
     logger.log(WW::LogLevel::Debug, "A debug message.");
