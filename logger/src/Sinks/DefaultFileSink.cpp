@@ -4,15 +4,9 @@ namespace WW
 {
 
 DefaultFileSink::DefaultFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter)
-    : SinkBase(formatter)
-    , filename(filename)
-    , file(filename, std::ios::out | std::ios::app)
+    : FileSink(filename, formatter)
 {
-    if (!file.is_open()) {
-        throw std::runtime_error("Failed to open log file: " + filename);
-    }
-
-    splitFilename();
+    openFile();
 }
 
 DefaultFileSink::~DefaultFileSink()
@@ -24,37 +18,17 @@ DefaultFileSink::~DefaultFileSink()
 
 void DefaultFileSink::log(const LogMessage & msg)
 {
-    if (!file.is_open()) {
-        return;
-    }
-
-    file << formatter->format(msg) << std::endl;
+    FileSink::log(msg);
 }
 
 void DefaultFileSink::log(const char * data, std::size_t size)
 {
-    if (file.is_open()) {
-        file.write(data, size);
-    }
+    FileSink::log(data, size);
 }
 
 void DefaultFileSink::flush()
 {
-    if (file.is_open()) {
-        file.flush();
-    }
-}
-
-void DefaultFileSink::splitFilename()
-{
-    std::size_t dot_pos = filename.find_last_of('.');
-    if (dot_pos == std::string::npos) {
-        name = filename;
-        suffix = "";
-    } else {
-        name = filename.substr(0, dot_pos);
-        suffix = filename.substr(dot_pos);
-    }
+    FileSink::flush();
 }
 
 } // namespace WW

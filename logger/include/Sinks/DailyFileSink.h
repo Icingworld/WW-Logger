@@ -18,6 +18,8 @@ public:
 public:
     void log(const LogMessage & msg) override;
 
+    void log(const char * data, std::size_t size) override;
+
     void flush() override;
 };
 

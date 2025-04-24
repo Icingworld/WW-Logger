@@ -4,24 +4,35 @@ namespace WW
 {
 
 RotateFileSink::RotateFileSink(const std::string & filename, std::size_t max_size, std::size_t max_files, std::shared_ptr<FormatterBase> formatter)
-    : DefaultFileSink(filename, formatter)
+    : FileSink(filename, formatter)
     , max_size(max_size)
     , max_files(max_files)
 {
+    openFile();
 }
 
 void RotateFileSink::log(const LogMessage & msg)
 {
-    DefaultFileSink::log(msg);
+    FileSink::log(msg);
+    checkRotate();
+}
 
-    if (getCurrentFileSize() > max_size) {
-        rotate();
-    }
+void RotateFileSink::log(const char * data, std::size_t size)
+{
+    FileSink::log(data, size);
+    checkRotate();
 }
 
 void RotateFileSink::flush()
 {
-    DefaultFileSink::flush();
+    FileSink::flush();
+}
+
+void RotateFileSink::checkRotate()
+{
+    if (getCurrentFileSize() > max_size) {
+        rotate();
+    }
 }
 
 std::size_t RotateFileSink::getCurrentFileSize() const

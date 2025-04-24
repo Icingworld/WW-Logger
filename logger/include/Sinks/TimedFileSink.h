@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Sinks/DefaultFileSink.h>
+#include <Sinks/FileSink.h>
 
 namespace WW
 {
@@ -8,14 +8,15 @@ namespace WW
 /**
  * @brief 按时间切片的日志文件输出
  */
-class TimedFileSink : public DefaultFileSink
+class TimedFileSink : public FileSink
 {
 protected:
     std::chrono::system_clock::time_point last_time;    // 上次切片时间
     std::chrono::duration<int> duration;                // 切片间隔
+    std::string format;                                 // 时间格式
 
 public:
-    explicit TimedFileSink(const std::string & filename, std::chrono::duration<int> duration = std::chrono::hours(24), std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
+    explicit TimedFileSink(const std::string & filename, const std::chrono::duration<int> & duration = std::chrono::hours(24), const std::string & format = "%Y-%m-%d_%H-%M-%S", std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
     ~TimedFileSink() override = default;
 
@@ -42,11 +43,18 @@ public:
 
     void log(const LogMessage & msg) override;
 
+    void log(const char * data, std::size_t size) override;
+
     void flush() override;
 
 private:
     /**
-     * @brief 是否需要切片
+     * @brief 检查是否需要轮转
+     */
+    void checkRotate();
+
+    /**
+     * @brief 是否需要轮转
      */
     bool shouldRotate(const std::chrono::system_clock::time_point & cur_time);
 
@@ -59,6 +67,11 @@ private:
      * @brief 格式化时间为文件名
      */
     std::string formatTime() const;
+
+    /**
+     * @brief 转换时间后打开日志文件
+     */
+    void openFile();
 };
 
 } // namespace WW

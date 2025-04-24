@@ -4,13 +4,18 @@ namespace WW
 {
 
 HourlyFileSink::HourlyFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter)
-    : TimedFileSink(filename, std::chrono::hours(1),formatter)
+    : TimedFileSink(filename, std::chrono::hours(1), "%Y-%m-%d_%H", formatter)
 {
 }
 
 void HourlyFileSink::log(const LogMessage & msg)
 {
     TimedFileSink::log(msg);
+}
+
+void HourlyFileSink::log(const char * data, std::size_t size)
+{
+    TimedFileSink::log(data, size);
 }
 
 void HourlyFileSink::flush()
