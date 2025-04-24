@@ -8,7 +8,7 @@ namespace WW
 
 TimedFileSink::TimedFileSink(const std::string & filename, std::chrono::duration<int> duration, std::shared_ptr<FormatterBase> formatter)
     : DefaultFileSink(filename, formatter)
-    , last_time(std::chrono::system_clock::time_point::min())
+    , last_time()
     , duration(duration)
 {
 }
