@@ -11,4 +11,4 @@ target_include_directories(logger PUBLIC
 
 find_package(Threads REQUIRED)
 
-target_link_libraries(logger PRIVATE third-party Threads::Threads)
+target_link_libraries(logger PRIVATE Threads::Threads)
