@@ -23,7 +23,7 @@ public:
     ~AsyncLogger() override;
 
 public:
-    void log(LogLevel level, const std::string & message, const char * file = "", unsigned int line = 0, const char * function = "") override;
+    void log(const std::string & name, LogLevel level, const std::string & message, const char * file = "", unsigned int line = 0, const char * function = "") override;
 
     void flush() override;
 

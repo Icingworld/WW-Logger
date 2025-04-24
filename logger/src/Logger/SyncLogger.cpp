@@ -5,9 +5,10 @@
 namespace WW
 {
 
-void SyncLogger::log(LogLevel level, const std::string & message, const char * file, unsigned int line, const char * function)
+void SyncLogger::log(const std::string & name, LogLevel level, const std::string & message, const char * file, unsigned int line, const char * function)
 {
     LogMessage msg = {
+        name,
         level,
         message,
         file,

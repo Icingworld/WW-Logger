@@ -10,6 +10,8 @@ std::string DefaultFormatter::format(const LogMessage & msg)
 {
     std::ostringstream oss;
 
+    oss << "[" << msg.name << "] ";
+
     time_t time = std::chrono::system_clock::to_time_t(msg.timestamp);
     std::tm tm_time;
 

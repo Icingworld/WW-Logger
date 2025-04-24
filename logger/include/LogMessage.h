@@ -15,6 +15,7 @@ namespace WW
 class LogMessage
 {
 public:
+    std::string name;                                   // 日志名称
     LogLevel level;                                     // 日志等级
     std::string message;                                // 日志消息
     std::string file;                                   // 文件名

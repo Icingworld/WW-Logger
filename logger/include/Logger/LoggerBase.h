@@ -35,7 +35,7 @@ public:
     /**
      * @brief 输出日志
      */
-    virtual void log(LogLevel level, const std::string & message, const char * file = "", unsigned int line = 0, const char * function = "") = 0;
+    virtual void log(const std::string & name, LogLevel level, const std::string & message, const char * file = "", unsigned int line = 0, const char * function = "") = 0;
 
     /**
      * @brief 刷新日志输出

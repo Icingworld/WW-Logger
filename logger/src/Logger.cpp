@@ -82,7 +82,7 @@ void Logger::log(LogLevel level, const std::string & message, const char * file,
     if (level == LogLevel::Off || level < this->level)
         return;
     
-    logger->log(level, message, file, line, function);
+    logger->log(name, level, message, file, line, function);
 }
 
 void Logger::trace(const std::string & message, const char * file, unsigned int line, const char * function)

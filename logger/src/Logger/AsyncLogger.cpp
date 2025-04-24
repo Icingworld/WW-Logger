@@ -17,9 +17,10 @@ AsyncLogger::~AsyncLogger()
     worker.stop();
 }
 
-void AsyncLogger::log(LogLevel level, const std::string & message, const char * file, unsigned int line, const char * function)
+void AsyncLogger::log(const std::string & name, LogLevel level, const std::string & message, const char * file, unsigned int line, const char * function)
 {
     LogMessage msg = {
+        name,
         level,
         message,
         file,
