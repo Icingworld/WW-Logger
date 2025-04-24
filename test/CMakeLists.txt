@@ -21,3 +21,15 @@ target_link_libraries(rotate_logger_test PRIVATE
     logger
     third-party
 )
+
+# timed_logger_test
+add_executable(timed_logger_test
+    src/timed_logger_test.cpp
+)
+
+target_include_directories(timed_logger_test PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+target_link_libraries(timed_logger_test PRIVATE
+    logger
+    third-party
+)
