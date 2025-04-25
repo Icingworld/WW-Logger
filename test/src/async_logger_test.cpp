@@ -1,23 +1,18 @@
 /**
- * @file sync_logger_test.cpp
- * @brief 同步日志的单线程、多线程功能测试
+ * @file async_logger_test.cpp
+ * @brief 异步日志的单线程、多线程功能测试
  */
 
 #include <gtest/gtest.h>
 #include <Logger.h>
-#include <Sinks/ConsoleSink.h>
 #include <Sinks/DefaultFileSink.h>
 
-TEST(SyncLoggerTest, SingleThreadSyncLogger)
+TEST(AsyncLoggerTest, SingleThreadAsyncLogger)
 {
-    WW::Logger & logger = WW::Logger::getSyncLogger("SingleThreadSyncLogger");
-
-    // 终端输出
-    auto console_sink = std::make_shared<WW::ConsoleSink>();
-    logger.addSink(console_sink);
-
+    WW::Logger & logger = WW::Logger::getAsyncLogger("SingleThreadAsyncLogger");
+    
     // 文件输出
-    std::string filename = "sync_logger_test_single_thread_log.txt";
+    auto filename = "async_logger_test_single_thread_log.txt";
     auto file_sink = std::make_shared<WW::DefaultFileSink>(filename);
     logger.addSink(file_sink);
 
@@ -33,16 +28,12 @@ TEST(SyncLoggerTest, SingleThreadSyncLogger)
     logger.flush();
 }
 
-TEST(SyncLoggerTest, MultiThreadSyncLogger)
+TEST(AsyncLoggerTest, MultiThreadAsyncLogger)
 {
-    WW::Logger & logger = WW::Logger::getSyncLogger("MultiThreadSyncLogger");
-
-    // 终端输出
-    auto console_sink = std::make_shared<WW::ConsoleSink>();
-    logger.addSink(console_sink);
+    WW::Logger & logger = WW::Logger::getAsyncLogger("MultiThreadAsyncLogger");
 
     // 文件输出
-    std::string filename = "sync_logger_test_multi_thread_log.txt";
+    auto filename = "async_logger_test_multi_thread_log.txt";
     auto file_sink = std::make_shared<WW::DefaultFileSink>(filename);
     logger.addSink(file_sink);
 

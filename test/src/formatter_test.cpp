@@ -11,7 +11,6 @@
 TEST(FormatterTest, Format)
 {
     WW::Logger & logger = WW::Logger::getSyncLogger("FormatterLogger");
-    logger.setLevel(WW::LogLevel::Debug);
     logger.setFormatter("[%F %T][%L] %v");
 
     // 终端输出

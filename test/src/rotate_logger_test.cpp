@@ -10,7 +10,6 @@
 TEST(RotateLoggerTest, SingleThread)
 {
     WW::Logger & logger = WW::Logger::getSyncLogger("SingleThreadRotateLogger");
-    logger.setLevel(WW::LogLevel::Info);
 
     // 文件输出
     std::string filename = "rotate_logger_test_single_thread_log.txt";

@@ -10,7 +10,6 @@
 TEST(TimedLoggerTest, SingleThread)
 {
     WW::Logger & logger = WW::Logger::getSyncLogger("SingleThreadTimedLogger");
-    logger.setLevel(WW::LogLevel::Info);
 
     // 文件输出
     std::string filename = "timed_logger_test_single_thread_log.txt";

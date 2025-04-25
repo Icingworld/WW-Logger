@@ -45,3 +45,15 @@ target_link_libraries(timed_logger_test PRIVATE
     logger
     third-party
 )
+
+# async_logger_test
+add_executable(async_logger_test
+    src/async_logger_test.cpp
+)
+
+target_include_directories(async_logger_test PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+target_link_libraries(async_logger_test PRIVATE
+    logger
+    third-party
+)
