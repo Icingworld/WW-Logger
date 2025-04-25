@@ -15,6 +15,7 @@ Logger::Logger(const std::string & name)
 Logger::Logger(const std::string & name, LogType type)
     : level(LogLevel::Info)
     , name(name)
+    , formattered(false)
 {
     if (type == LogType::Sync) {
         logger = std::make_shared<SyncLogger>();
