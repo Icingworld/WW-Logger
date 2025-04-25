@@ -10,6 +10,18 @@ target_link_libraries(sync_logger_test PRIVATE
     third-party
 )
 
+# formatter_test.cpp
+add_executable(formatter_test
+    src/formatter_test.cpp
+)
+
+target_include_directories(formatter_test PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+target_link_libraries(formatter_test PRIVATE
+    logger
+    third-party
+)
+
 # rotate_logger_test
 add_executable(rotate_logger_test
     src/rotate_logger_test.cpp
