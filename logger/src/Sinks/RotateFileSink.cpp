@@ -3,6 +3,14 @@
 namespace WW
 {
 
+RotateFileSink::RotateFileSink(const std::string & filename, const std::string & pattern, std::size_t max_size, std::size_t max_files)
+    : FileSink(filename, pattern)
+    , max_size(max_size)
+    , max_files(max_files)
+{
+    openFile();
+}
+
 RotateFileSink::RotateFileSink(const std::string & filename, std::size_t max_size, std::size_t max_files, std::shared_ptr<FormatterBase> formatter)
     : FileSink(filename, formatter)
     , max_size(max_size)

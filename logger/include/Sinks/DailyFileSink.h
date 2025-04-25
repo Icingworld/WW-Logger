@@ -11,6 +11,8 @@ namespace WW
 class DailyFileSink : public TimedFileSink
 {
 public:
+    DailyFileSink(const std::string & filename, const std::string & pattern);
+
     explicit DailyFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
     ~DailyFileSink() override = default;

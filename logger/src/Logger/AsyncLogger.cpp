@@ -47,6 +47,11 @@ LogType AsyncLogger::getType() const
     return LogType::Async;
 }
 
+void AsyncLogger::setFormatter(const std::string & pattern)
+{
+    this->formatter = std::make_shared<DefaultFormatter>(pattern);
+}
+
 void AsyncLogger::setFormatter(std::shared_ptr<FormatterBase> formatter)
 {
     this->formatter = formatter;

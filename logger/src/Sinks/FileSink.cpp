@@ -3,6 +3,13 @@
 namespace WW
 {
 
+FileSink::FileSink(const std::string & filename, const std::string & pattern)
+    : SinkBase(pattern)
+    , filename(filename)
+{
+    splitFilename();
+}
+
 FileSink::FileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter)
     : SinkBase(std::move(formatter)), 
     filename(filename)

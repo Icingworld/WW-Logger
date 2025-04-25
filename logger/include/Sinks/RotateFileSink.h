@@ -15,6 +15,8 @@ private:
     std::size_t max_files;      // 最多文件数量
 
 public:
+    RotateFileSink(const std::string & filename, const std::string & pattern, std::size_t max_size = 1024 * 1024, std::size_t max_files = 1);
+
     explicit RotateFileSink(const std::string & filename, std::size_t max_size = 1024 * 1024, std::size_t max_files = 1, std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
     ~RotateFileSink() override = default;

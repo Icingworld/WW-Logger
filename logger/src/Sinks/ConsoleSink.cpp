@@ -5,6 +5,11 @@
 namespace WW
 {
 
+ConsoleSink::ConsoleSink(const std::string & pattern)
+    : SinkBase(pattern)
+{
+}
+
 ConsoleSink::ConsoleSink(std::shared_ptr<FormatterBase> formatter)
     : SinkBase(formatter)
 {

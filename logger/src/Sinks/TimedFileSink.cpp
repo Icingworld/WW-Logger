@@ -6,11 +6,19 @@
 namespace WW
 {
 
-TimedFileSink::TimedFileSink(const std::string & filename, const std::chrono::duration<int> & duration, const std::string & format, std::shared_ptr<FormatterBase> formatter)
+TimedFileSink::TimedFileSink(const std::string & filename, const std::string & pattern, const std::chrono::duration<int> & duration, const std::string & file_format)
+    : FileSink(filename, pattern)
+    , last_time()
+    , duration(duration)
+    , file_format(file_format)
+{
+}
+
+TimedFileSink::TimedFileSink(const std::string & filename, const std::chrono::duration<int> & duration, const std::string & file_format, std::shared_ptr<FormatterBase> formatter)
     : FileSink(filename, formatter)
     , last_time()
     , duration(duration)
-    , format(format)
+    , file_format(file_format)
 {
     openFile();
 }
@@ -85,7 +93,7 @@ std::string TimedFileSink::formatTime() const
     std::tm tm = *std::localtime(&time);
 
     std::ostringstream oss;
-    oss << std::put_time(&tm, format.c_str());
+    oss << std::put_time(&tm, file_format.c_str());
 
     return oss.str();
 }

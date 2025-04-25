@@ -3,6 +3,12 @@
 namespace WW
 {
 
+DefaultFileSink::DefaultFileSink(const std::string & filename, const std::string & pattern)
+    : FileSink(filename, pattern)
+{
+    openFile();
+}
+
 DefaultFileSink::DefaultFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter)
     : FileSink(filename, formatter)
 {

@@ -8,22 +8,12 @@ std::mutex Logger::loggers_mutex;
 std::unordered_map<std::string, std::shared_ptr<Logger>> Logger::loggers;
 
 Logger::Logger(const std::string & name)
-    : Logger(name, LogLevel::Info, LogType::Sync)
-{
-}
-
-Logger::Logger(const std::string & name, LogLevel level)
-    : Logger(name, level, LogType::Sync)
+    : Logger(name, LogType::Sync)
 {
 }
 
 Logger::Logger(const std::string & name, LogType type)
-    : Logger(name, LogLevel::Info, type)
-{
-}
-
-Logger::Logger(const std::string & name, LogLevel level, LogType type)
-    : level(level)
+    : level(LogLevel::Info)
     , name(name)
 {
     if (type == LogType::Sync) {
@@ -74,7 +64,29 @@ void Logger::setLevel(LogLevel level)
 
 void Logger::addSink(std::shared_ptr<SinkBase> sink)
 {
+    if (formattered) {
+        sink->setFormatter(formatter);
+    }
     logger->addSink(sink);
+}
+
+void Logger::setFormatter(const std::string & pattern)
+{
+    formatter = std::make_shared<DefaultFormatter>(pattern);
+    logger->setFormatter(pattern);
+    formattered = true;
+}
+
+void Logger::setFormatter(std::shared_ptr<FormatterBase> formatter)
+{
+    this->formatter = formatter;
+    logger->setFormatter(formatter);
+    formattered = true;
+}
+
+void Logger::clearFormatter()
+{
+    formattered = false;
 }
 
 void Logger::log(LogLevel level, const std::string & message, const char * file, unsigned int line, const char * function)
@@ -125,7 +137,7 @@ Logger & Logger::getLogger(const std::string & name, LogType type)
     std::lock_guard<std::mutex> lock(loggers_mutex);
     auto it = loggers.find(name);
     if (it == loggers.end()) {
-        auto logger = std::make_shared<Logger>(name, type);
+        auto logger = std::shared_ptr<Logger>(new Logger(name, type));
         loggers[name] = logger;
         return *logger;
     }

@@ -16,6 +16,8 @@ protected:
     std::ofstream file;                     // 日志文件
 
 public:
+    FileSink(const std::string & filename, const std::string & pattern);
+
     explicit FileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
     ~FileSink() override;

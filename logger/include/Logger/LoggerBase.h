@@ -51,6 +51,16 @@ public:
      * @brief 添加输出接口
      */
     void addSink(std::shared_ptr<SinkBase> sink);
+
+    /**
+     * @brief 设置日志格式化器
+     */
+    void setFormatter(const std::string & pattern);
+
+    /**
+     * @brief 设置日志格式化器
+     */
+    void setFormatter(std::shared_ptr<FormatterBase> formatter);
 };
 
 } // namespace WW

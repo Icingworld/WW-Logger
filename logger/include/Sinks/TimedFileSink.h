@@ -13,10 +13,12 @@ class TimedFileSink : public FileSink
 protected:
     std::chrono::system_clock::time_point last_time;    // 上次切片时间
     std::chrono::duration<int> duration;                // 切片间隔
-    std::string format;                                 // 时间格式
+    std::string file_format;                            // 文件名附加格式
 
 public:
-    explicit TimedFileSink(const std::string & filename, const std::chrono::duration<int> & duration = std::chrono::hours(24), const std::string & format = "%Y-%m-%d_%H-%M-%S", std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
+    TimedFileSink(const std::string & filename, const std::string & pattern, const std::chrono::duration<int> & duration = std::chrono::hours(24), const std::string & format = "%Y-%m-%d_%H-%M-%S");
+
+    explicit TimedFileSink(const std::string & filename, const std::chrono::duration<int> & duration = std::chrono::hours(24), const std::string & file_format = "%Y-%m-%d_%H-%M-%S", std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
     ~TimedFileSink() override = default;
 

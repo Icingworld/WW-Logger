@@ -40,6 +40,9 @@ private:
      */
     std::string formatLogLevel(LogLevel level) const;
 
+    /**
+     * @brief 获取日志中的时间并格式化
+     */
     void getTime(const LogMessage & msg, std::tm & tm_time);
 };
 

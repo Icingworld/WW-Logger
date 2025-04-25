@@ -127,21 +127,19 @@ std::string DefaultFormatter::formatLogLevel(LogLevel level) const
 {
     switch (level) {
     case LogLevel::Trace:
-        return "TRACE";
+        return "trace";
     case LogLevel::Debug:
-        return "DEBUG";
+        return "debug";
     case LogLevel::Info:
-        return "INFO";
+        return "info";
     case LogLevel::Warn:
-        return "WARN";
+        return "warn";
     case LogLevel::Error:
-        return "ERROR";
+        return "error";
     case LogLevel::Fatal:
-        return "FATAL";
-    case LogLevel::Off:
-        return "OFF";
+        return "fatal";
     default:
-        return "UNKNOWN";
+        return "unknown";
     }
 }
 

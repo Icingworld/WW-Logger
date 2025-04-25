@@ -11,7 +11,9 @@ namespace WW
 class ConsoleSink : public SinkBase
 {
 public:
-    explicit ConsoleSink(std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
+    explicit ConsoleSink(const std::string & pattern);
+
+    ConsoleSink(std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
     ~ConsoleSink() override = default;
 

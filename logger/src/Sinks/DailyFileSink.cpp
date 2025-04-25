@@ -3,6 +3,11 @@
 namespace WW
 {
 
+DailyFileSink::DailyFileSink(const std::string & filename, const std::string & pattern)
+    : TimedFileSink(filename, pattern, std::chrono::hours(24), "%Y-%m-%d")
+{
+}
+
 DailyFileSink::DailyFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter)
     : TimedFileSink(filename, std::chrono::hours(24), "%Y-%m-%d", formatter)
 {

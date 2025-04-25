@@ -13,6 +13,8 @@ namespace WW
 class DefaultFileSink : public FileSink
 {
 public:
+    DefaultFileSink(const std::string & filename, const std::string & pattern);
+
     explicit DefaultFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
     ~DefaultFileSink() override;

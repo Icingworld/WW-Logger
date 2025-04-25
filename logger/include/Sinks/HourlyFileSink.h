@@ -11,6 +11,8 @@ namespace WW
 class HourlyFileSink : public TimedFileSink
 {
 public:
+    HourlyFileSink(const std::string & filename, const std::string & pattern);
+
     explicit HourlyFileSink(const std::string & filename, std::shared_ptr<FormatterBase> formatter = std::make_shared<DefaultFormatter>());
 
     ~HourlyFileSink() override = default;

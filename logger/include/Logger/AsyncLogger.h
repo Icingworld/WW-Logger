@@ -31,6 +31,13 @@ public:
 
     /**
      * @brief 设置日志格式化器
+     * @details 并非虚函数
+     */
+    void setFormatter(const std::string & pattern);
+
+    /**
+     * @brief 设置日志格式化器
+     * @details 并非虚函数
      */
     void setFormatter(std::shared_ptr<FormatterBase> formatter);
 
