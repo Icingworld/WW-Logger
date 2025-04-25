@@ -1,5 +1,9 @@
 #pragma once
 
+#include <vector>
+#include <functional>
+#include <sstream>
+
 #include <Formatter/FormatterBase.h>
 
 namespace WW
@@ -10,8 +14,15 @@ namespace WW
  */
 class DefaultFormatter : public FormatterBase
 {
+protected:
+    std::tm tm_time;            // 用于lambda函数的格式化时间
+    bool timed;                 // 是否格式化时间
+    std::vector<std::function<void(std::ostringstream &, const LogMessage &)>> instructions;    // 格式化指令集
+
 public:
-    DefaultFormatter() = default;
+    DefaultFormatter();
+
+    DefaultFormatter(const std::string & pattern);
 
     ~DefaultFormatter() override = default;
 
@@ -20,9 +31,16 @@ public:
 
 private:
     /**
+     * @brief 预编译格式化指令集
+     */
+    void compile(const std::string & pattern);
+
+    /**
      * @brief 格式化日志等级
      */
     std::string formatLogLevel(LogLevel level) const;
+
+    void getTime(const LogMessage & msg, std::tm & tm_time);
 };
 
 } // namespace WW

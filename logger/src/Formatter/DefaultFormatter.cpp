@@ -1,45 +1,126 @@
 #include "DefaultFormatter.h"
 
-#include <sstream>
 #include <iomanip>
 
 namespace WW
 {
 
+DefaultFormatter::DefaultFormatter()
+    : DefaultFormatter("[%n][%c][%L] %v")
+{
+}
+
+DefaultFormatter::DefaultFormatter(const std::string & pattern)
+    : timed(false)
+{
+    compile(pattern);
+}
+
 std::string DefaultFormatter::format(const LogMessage & msg)
 {
     std::ostringstream oss;
-
-    oss << "[" << msg.name << "] ";
-
-    time_t time = std::chrono::system_clock::to_time_t(msg.timestamp);
-    std::tm tm_time;
-
-#ifdef _WIN32
-    localtime_s(&tm_time, &time);   // Windows
-#else
-    localtime_r(&time, &tm_time);   // Linux/Mac
-#endif
-
-    oss << "[" << std::put_time(&tm_time, "%Y-%m-%d %H:%M:%S") << "] ";
-
-    if (msg.thread_id != std::thread::id()) {
-        oss << "[TID:" << msg.thread_id << "] ";
+    for (const auto & instruction : instructions) {
+        instruction(oss, msg);
     }
-
-    oss << "[" << formatLogLevel(msg.level) << "] ";
-
-    if (!msg.file.empty()) {
-        oss << "[" << msg.file << ":" << msg.line << "] ";
-    }
-
-    if (!msg.function.empty()) {
-        oss << "[" << msg.function << "] ";
-    }
-
-    oss << msg.message;
-
+    timed = false;
     return oss.str();
+}
+
+void DefaultFormatter::compile(const std::string & pattern)
+{
+    for (std::size_t i = 0; i < pattern.size(); ++i) {
+        if (pattern[i] == '%' && i + 1 < pattern.size()) {
+            char code = pattern[i + 1];
+            switch (code) {
+                case 'Y':
+                case 'y':
+                case 'b':
+                case 'h':
+                case 'B':
+                case 'm':
+                case 'd':
+                case 'e':
+                case 'a':
+                case 'A':
+                case 'w':
+                case 'u':
+                case 'H':
+                case 'I':
+                case 'M':
+                case 'S':
+                case 'c':
+                case 'D':
+                case 'F':
+                case 'T':
+                case 'P':
+                case 'Z':
+                    instructions.emplace_back([this, code](std::ostringstream & oss, const LogMessage & msg) {
+                        if (!timed) {
+                            getTime(msg, tm_time);
+                            timed = true;
+                        }
+                        char fmt_buf[3] = { '%', code, '\0' };
+                        oss << std::put_time(&tm_time, fmt_buf);
+                    });
+                    break;
+                case 'L':
+                    instructions.emplace_back([this](std::ostringstream & oss, const LogMessage & msg) {
+                        oss << formatLogLevel(msg.level);
+                    });
+                    break;
+                case 't':
+                    instructions.emplace_back([](std::ostringstream & oss, const LogMessage & msg) {
+                        oss << msg.thread_id;
+                    });
+                    break;
+                case 'f':
+                    instructions.emplace_back([](std::ostringstream & oss, const LogMessage & msg) {
+                        oss << msg.file;
+                    });
+                    break;
+                case 'l':
+                    instructions.emplace_back([](std::ostringstream & oss, const LogMessage & msg) {
+                        oss << msg.line;
+                    });
+                    break;
+                case 'C':
+                    instructions.emplace_back([](std::ostringstream & oss, const LogMessage & msg) {
+                        oss << msg.function;
+                    });
+                    break;
+                case 'V':
+                    instructions.emplace_back([](std::ostringstream & oss, const LogMessage & msg) {
+                        oss << msg.file << ":" << msg.line << "-" << msg.function;
+                    });
+                    break;
+                case 'n':
+                    instructions.emplace_back([](std::ostringstream & oss, const LogMessage & msg) {
+                        oss << msg.name;
+                    });
+                    break;
+                case 'v':
+                    instructions.emplace_back([](std::ostringstream & oss, const LogMessage & msg) {
+                        oss << msg.message;
+                    });
+                    break;
+                default:
+                instructions.emplace_back([code](std::ostringstream & oss, const LogMessage & msg) {
+                    oss << '%' << code;
+                });
+            }
+            ++i;
+        } else {
+            size_t start = i;
+            while (i < pattern.size() && !(pattern[i] == '%' && i + 1 < pattern.size())) {
+                ++i;
+            }
+            std::string literal = pattern.substr(start, i - start);
+            instructions.emplace_back([literal](std::ostringstream& oss, const LogMessage&) {
+                oss << literal;
+            });
+            --i;
+        }
+    }
 }
 
 std::string DefaultFormatter::formatLogLevel(LogLevel level) const
@@ -62,6 +143,16 @@ std::string DefaultFormatter::formatLogLevel(LogLevel level) const
     default:
         return "UNKNOWN";
     }
+}
+
+void DefaultFormatter::getTime(const LogMessage & msg, std::tm & tm_time)
+{
+    time_t time = std::chrono::system_clock::to_time_t(msg.timestamp);
+#ifdef _WIN32
+    localtime_s(&tm_time, &time);   // Windows
+#else
+    localtime_r(&time, &tm_time);   // Linux/Mac
+#endif
 }
 
 } // namespace WW
